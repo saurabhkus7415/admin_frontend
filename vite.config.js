@@ -22,6 +22,5 @@ export default defineConfig({
       },
     },
   },
-  // use relative paths so preview (and file-hosted builds) load assets correctly
   base: './',
 })

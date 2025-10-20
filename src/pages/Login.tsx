@@ -22,11 +22,9 @@ export default function Login({ onLogin }) {
       const token = res?.token ?? res?.data?.token ?? res?.accessToken ?? null;
 
       if (token) {
-        // CALL THE PASSED PROP: updates localStorage AND React state in App.js
         onLogin(token); 
         
         message.success('Login successful!');
-        // Navigation will now trigger a successful re-render of App.js
         nav('/', { replace: true });
       } else {
         message.error('Invalid response from server');

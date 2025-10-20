@@ -84,9 +84,8 @@ function filterEmptyRows(rows: any[]) {
         body: form,
       });
 
-      // Backend validation errors
       if (res.error) {
-        let errorMsg = `❌ Upload failed: ${res.error}`;
+        let errorMsg = `Upload failed: ${res.error}`;
 
         if (res.invalid && Array.isArray(res.invalid)) {
           const details = res.invalid
@@ -105,11 +104,9 @@ function filterEmptyRows(rows: any[]) {
         return;
       }
 
-      // Success
-      setMsg("✅ Upload successful: " + JSON.stringify(res));
+      setMsg("Upload successful: " + JSON.stringify(res));
       setIsError(false);
 
-      // Preview first 5 rows for CSV
       if (name.endsWith(".csv")) {
         const text = await file.text();
         const parsed = Papa.parse(text, { header: true });
@@ -117,7 +114,7 @@ function filterEmptyRows(rows: any[]) {
         setPreview(filtered.slice(0, 5));
       }
     } catch (err: any) {
-      setMsg("❌ Upload failed: " + (err.message || JSON.stringify(err)));
+      setMsg("Upload failed: " + (err.message || JSON.stringify(err)));
       setIsError(true);
     } finally {
       setUploading(false);

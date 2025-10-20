@@ -18,28 +18,6 @@ function App() {
     setToken(newToken);
   };
 
-  //   return (
-  //     <BrowserRouter basename="/">
-  //       <Routes>
-  //   <Route path="/login" element={<Login onLogin={handleLogin} />} />
-
-  //   {!token && <Route path="/*" element={<Navigate to='/login' />} />}
-
-  //   {token && (
-  //     <Route path="/" element={<Dashboard />}>
-  //       <Route index element={<Teachers />} />
-  //       <Route path="teachers" element={<Teachers />} />
-  //       <Route path="students" element={<Students />} />
-  //       <Route path="upload" element={<Upload />} />
-  //       <Route path="approvals" element={<Approvals />} />
-  //       <Route path="audit" element={<Audit />} />
-  //     </Route>
-  //   )}
-  // </Routes>
-  //     </BrowserRouter>
-  //   );
-  // Inside your App component's return statement:
-
   return (
     <BrowserRouter basename="/">
       <Routes>
