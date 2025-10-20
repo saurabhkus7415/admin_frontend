@@ -10,6 +10,7 @@ import {
   Alert,
   Input,
   message,
+  Tag,
 } from "antd";
 
 const { Title, Text } = Typography;
@@ -24,12 +25,13 @@ export default function Approvals() {
   const [rejectModalVisible, setRejectModalVisible] = useState(false);
   const [rejectId, setRejectId] = useState<any>(null);
   const [rejectRemarks, setRejectRemarks] = useState("");
+  const [filter, setFilter] = useState<"Pending" | "Rejected">("Pending"); // Filter state
 
   const load = async () => {
     setLoading(true);
     setError("");
     try {
-      const res: any = await api("/api/approvals/pending");
+      const res: any = await api(`/api/approvals?status=${filter}`);
       setItems(res.data || res);
     } catch (e: any) {
       setError(e.message || "Failed to fetch approvals");
@@ -40,7 +42,7 @@ export default function Approvals() {
 
   useEffect(() => {
     load();
-  }, []);
+  }, [filter]); // reload whenever filter changes
 
   const handleApprove = async (id: any) => {
     Modal.confirm({
@@ -109,6 +111,20 @@ export default function Approvals() {
     { title: "ID", dataIndex: "id", key: "id" },
     { title: "Name", dataIndex: "name", key: "name" },
     { title: "Type", dataIndex: "entity_type", key: "entity_type" },
+    { title: "Status", dataIndex: "status", key: "status" },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (text: string) =>
+        text === "Pending" ? (
+          <Tag color="yellow">Pending</Tag>
+        ) : text === "Rejected" ? (
+          <Tag color="red">Rejected</Tag>
+        ) : (
+          <Tag>{text}</Tag>
+        ),
+    },
     {
       title: "Data",
       dataIndex: "data_fields",
@@ -122,24 +138,41 @@ export default function Approvals() {
     {
       title: "Actions",
       key: "actions",
-      render: (_: any, record: any) => (
-        <div style={{ display: "flex", gap: 8 }}>
-          <Button type="primary" onClick={() => handleApprove(record.id)}>
-            Approve
-          </Button>
-          <Button danger onClick={() => handleReject(record.id)}>
-            Reject
-          </Button>
-        </div>
-      ),
+      render: (_: any, record: any) =>
+        record.status === "Pending" ? (
+          <div style={{ display: "flex", gap: 8 }}>
+            <Button type="primary" onClick={() => handleApprove(record.id)}>
+              Approve
+            </Button>
+            <Button danger onClick={() => handleReject(record.id)}>
+              Reject
+            </Button>
+          </div>
+        ) : null,
     },
   ];
 
   return (
     <div>
       <Title level={4} style={{ marginBottom: 16 }}>
-        Pending Approvals
+        Approvals
       </Title>
+
+      {/* Filter Buttons */}
+      <div style={{ marginBottom: 16, display: "flex", gap: 8 }}>
+        <Button
+          type={filter === "Pending" ? "primary" : "default"}
+          onClick={() => setFilter("Pending")}
+        >
+          Pending
+        </Button>
+        <Button
+          type={filter === "Rejected" ? "primary" : "default"}
+          onClick={() => setFilter("Rejected")}
+        >
+          Rejected
+        </Button>
+      </div>
 
       {error && (
         <Alert
