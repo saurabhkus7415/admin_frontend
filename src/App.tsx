@@ -27,12 +27,11 @@ function App() {
 
         {token && (
           <Route path="/" element={<Dashboard />}>
-            <Route index element={<Teachers />} />
-
+            <Route index element={<Approvals />} />
+            <Route path="approvals" element={<Approvals />} />
             <Route path="teachers" element={<Teachers />} />
             <Route path="students" element={<Students />} />
             <Route path="upload" element={<Upload />} />
-            <Route path="approvals" element={<Approvals />} />
             <Route path="audit" element={<Audit />} />
 
             <Route path="*" element={<Navigate to="/" replace />} />

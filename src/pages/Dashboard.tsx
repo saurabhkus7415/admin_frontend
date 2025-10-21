@@ -8,7 +8,7 @@ const { Header, Content, Footer, Sider } = Layout;
 export default function Dashboard() {
   const location = useLocation();
   const navigate = useNavigate();
-  const selectedKey = location.pathname.split('/')[1] || 'teachers';
+  const selectedKey = location.pathname.split('/')[1] || 'approvals';
 
   const logout = () => {
     Modal.confirm({
@@ -33,6 +33,9 @@ export default function Dashboard() {
           MIS Admin
         </div>
         <Menu theme="dark" selectedKeys={[selectedKey]} mode="inline">
+          <Menu.Item key="approvals" icon={<DesktopOutlined />}>
+            <Link to="/approvals">Approvals</Link>
+          </Menu.Item>
           <Menu.Item key="teachers" icon={<UserOutlined />}>
             <Link to="/teachers">Teachers</Link>
           </Menu.Item>
@@ -41,9 +44,6 @@ export default function Dashboard() {
           </Menu.Item>
           <Menu.Item key="upload" icon={<UploadOutlined />}>
             <Link to="/upload">Upload</Link>
-          </Menu.Item>
-          <Menu.Item key="approvals" icon={<DesktopOutlined />}>
-            <Link to="/approvals">Approvals</Link>
           </Menu.Item>
           <Menu.Item key="audit" icon={<AuditOutlined />}>
             <Link to="/audit">Audit</Link>

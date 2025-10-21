@@ -25,7 +25,7 @@ export default function Approvals() {
   const [rejectModalVisible, setRejectModalVisible] = useState(false);
   const [rejectId, setRejectId] = useState<any>(null);
   const [rejectRemarks, setRejectRemarks] = useState("");
-  const [filter, setFilter] = useState<"Pending" | "Rejected">("Pending"); // Filter state
+  const [filter, setFilter] = useState<"Pending" | "Rejected"|"Approved">("Pending"); // Filter state
 
   const load = async () => {
     setLoading(true);
@@ -121,6 +121,8 @@ export default function Approvals() {
           <Tag color="yellow">Pending</Tag>
         ) : text === "Rejected" ? (
           <Tag color="red">Rejected</Tag>
+        ): text === "Approved" ? (
+          <Tag color="green">Approved</Tag>
         ) : (
           <Tag>{text}</Tag>
         ),
@@ -172,6 +174,13 @@ export default function Approvals() {
         >
           Rejected
         </Button>
+         <Button
+          type={filter === "Approved" ? "primary" : "default"}
+          onClick={() => setFilter("Approved")}
+        >
+          Approved
+        </Button>
+        
       </div>
 
       {error && (
