@@ -1,4 +1,4 @@
-const API_BASE = (import.meta as any).env?.VITE_API_BASE || 'https://mis-backend-851274336281.asia-south1.run.app';
+const API_BASE = (import.meta as any).env?.VITE_API_BASE || 'http://0.0.0.0:5001';
 
 export async function api(path:string, opts:RequestInit = {}) {
   const token = localStorage.getItem('token');
